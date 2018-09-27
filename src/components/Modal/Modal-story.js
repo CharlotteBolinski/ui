@@ -3,6 +3,12 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import Modal from '../Modal';
 
+import SingleComponent from '../../documentation/SingleComponent';
+import { exampleStory } from '../../../.storybook/lucid-docs-addon';
+
+import HtmlComponent from '../../documentation/HtmlComponent';
+import HtmlTransactional from '!!raw-loader!./Modal.html';
+
 const modalProps = {
   onBlur: action('onBlur'),
   onClick: action('onClick'),
@@ -96,4 +102,24 @@ storiesOf('Modal', module)
         </p>
       </Modal>
     )
+  );
+
+storiesOf('Modal', module)
+  .addDecorator(
+    exampleStory({
+      component: SingleComponent,
+      example: SingleComponent,
+      code: HtmlTransactional,
+      options: { showAddonPanel: true },
+    })
+  )
+  .addDecorator(story => (
+    <HtmlComponent html={HtmlTransactional}>{story()}</HtmlComponent>
+  ))
+  .addWithInfo(
+    'html_transactional',
+    `
+     />
+    `,
+    () => null
   );
